@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Linq;
 
 namespace homework
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            ex10();
-            // ex6, //ex8 (узнать что такое linq)
+            ex12();
         }
 
         static void ex1()
@@ -99,25 +97,33 @@ namespace homework
             Console.WriteLine("Обязательно использовать try-catch-(finally). Дана непустая последовательность неотрицательных целых чисел," +
                 " оканчивающаяся отрицательным числом.Найти среднее арифметическое всех чисел последовательности" +
                 "(без учета отрицательного числа).");
-            Console.WriteLine("Enter number of elements");
-            int el = Convert.ToInt32(Console.ReadLine());
             try
             {
-                int i = 1;
-                Console.WriteLine("Enter a number");
-                int[] num = new int[el];
+                Console.WriteLine("Enter number of elements");
+                int el = Convert.ToInt32(Console.ReadLine());
+                int[] arr = new int[el];
+                int i = 0;
+                int j = 0;
                 int sum = 0;
-                for (i = 1; i <= el; i++)
+                Console.WriteLine("Enter numbers through enter");
+                do
                 {
-                    num[i] = Convert.ToInt32(Console.ReadLine());
-                    sum += num[i];
+                    arr[i] = Convert.ToInt32(Console.ReadLine());
+                    i += 1;
                 }
+                while (i < el);
+                for (j = 0; j < (arr.Length - 1); j++)
+                {
+                    sum += arr[j];
+                }
+                Console.WriteLine(sum);
             }
 
             catch
             {
                 Console.WriteLine("Try again!");
             }
+
 
         }
         enum cards
@@ -157,22 +163,23 @@ namespace homework
             Console.WriteLine("Создать массив строк. При помощи foreach обойти весь массив. При встрече элемента " +
                 "'Hello Kitty' или  'Barbie doll' необходимо положить их в “сумку”, " +
                 "т.е. прибавить к результату. Вывести на экран сколько кукол в 'сумке'.");
-            string[] bag = new string[6] { "Lipstick", "Hello Kitty", "Mirror", "Barbie doll", "Hello Kitty", "Hello Kitty" };
-            string str1 = "Hello Kitty";
-            string str2 = "Barbie Doll";
+            string[] bag = new string[6] { "Lipstick", "Hello Kitty", "Mirror", "Barbie Doll", "Hello Kitty", "Hello Kitty" };
+            int h = 0;
+            int b = 0;
             foreach (string a in bag)
             {
-                var find = from word in bag
-                           where word.Equals(str1, StringComparison.InvariantCultureIgnoreCase)
-                           select word;
-                int wordCount = find.Count();
-                var find2 = from word in bag
-                            where word.Equals(str2, StringComparison.InvariantCultureIgnoreCase)
-                            select word;
-                int wordCount2 = find2.Count();
-                Console.WriteLine("Amount of Hello Kitty in the bag is " + wordCount + " Amount of Barbie Doll in the bag is " + wordCount2);
+                if (a == "Hello Kitty")
+                {
+                    h += 1;
+                }
+                else if (a == "Barbie Doll")
+                {
+                    b += 1;
+                }
+
 
             }
+            Console.WriteLine("There are " + h + " Hello Kitty " + b + " Barbie Doll in the bag");
 
         }
         enum Days
@@ -233,12 +240,50 @@ namespace homework
                 "Определить, есть ли эта последовательность упорядоченной по возрастанию. " +
                 "В случае отрицательного ответа определить порядковый номер первого числа, которое нарушает данную последовательность. " +
                 "Использовать break. ");
+            int[] nums = new int[10];
+            Console.WriteLine("Enter 10 number through enter");
+            nums[0] = Convert.ToInt32(Console.ReadLine());
+            nums[1] = Convert.ToInt32(Console.ReadLine());
+            nums[2] = Convert.ToInt32(Console.ReadLine());
+            nums[3] = Convert.ToInt32(Console.ReadLine());
+            nums[4] = Convert.ToInt32(Console.ReadLine());
+            nums[5] = Convert.ToInt32(Console.ReadLine());
+            nums[6] = Convert.ToInt32(Console.ReadLine());
+            nums[7] = Convert.ToInt32(Console.ReadLine());
+            nums[8] = Convert.ToInt32(Console.ReadLine());
+            nums[9] = Convert.ToInt32(Console.ReadLine());
+            bool flag = true;
+            int i = 0;
+            do
+            {
+                if (i > 0 && nums[i] < nums[i - 1])
+                {
+                    flag = false;
+                    break;
+                }
+            } while (i++ < 9);
+            Console.WriteLine(flag ? "\nRight order" : $"\nWrong order, number: {i + 1}");
 
+        }
+        public struct student
+        {
+            public string name;
+            public DateTime Birthdate;
+        }
+        public static void ex12()
+        {
+            Console.WriteLine("Создать структуру студента с датой рождения, вывести сколько ему лет сейчас");
+            student student1 = new student();
+            Console.WriteLine("Enter your year");
+            student1.name = Console.ReadLine();
+            Console.WriteLine("Enter your date of birth in a format DD/MM/YYYY");
+            student1.Birthdate = DateTime.Parse(Console.ReadLine());
+            Console.WriteLine("Student's age: " + (DateTime.Now.Year - student1.Birthdate.Year));
 
         }
 
 
-        }
+    }
     }
 
 
